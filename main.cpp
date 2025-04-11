@@ -26,12 +26,14 @@ template<>
 /// <param name="c2">文字２</param>
 char Min<char>(char c1, char c2) {
 	printf("数字以外代入できません\n");
-	return c1;
+	return 0;
 
 }
 int main(){
 
 	printf("%d\n", Min<int>(11, 10));
-	printf("%c\n", Min('b', 'a'));
+	printf("%f\n", Min<float>(1.1f, 2.2f));
+	printf("%lf\n", Min<double>(1.3, 3.1));
+	printf("%c\n", Min<char>('b', 'a'));
 	return 0;
 }
