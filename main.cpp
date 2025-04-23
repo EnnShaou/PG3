@@ -2,23 +2,36 @@
 #include<Windows.h>
 #include<stdlib.h>
 #include <time.h>
-
-//サイコロの目を判定する関数のプロトタイプ宣言
-typedef void(PFunc)(int*,int*);
-//サイコロを振る関数
-void Dice(PFunc* pResult, int player);
-//サイコロの目を判定する関数
-void Judgment(int* pResult, int* playerJudgment);
+#include<functional>
 
 
-int main(){
+using namespace std;
+
+int main() {
 
 	//乱数の初期化
 	srand(unsigned int(time(0)));
 	int isEnd = 1;
 	int playerJudgment = 0;//プレイヤーの予想
-	PFunc* pFunc;//関数ポインタの宣言
-	pFunc = Judgment;//関数ポインタに関数を代入
+	// 判定処理（丁半判定）
+	function<void(int*, int*)> pFunc = [](int* pResult, int* playerJudgment) {
+		printf("サイコロの目は%d\n", *pResult);
+		if (*pResult % 2 == 0 && *playerJudgment == 2 ||
+			*pResult % 2 != 0 && *playerJudgment == 1) {
+			printf("おめでとう！\n");
+		}
+		else {
+			printf("残念！\n");
+		}
+		};
+
+	// サイコロを振る関数：引数はプレイヤーの予想だけ
+	function<void(int)> Dice = [&pFunc](int player) {
+		int dice = rand() % 6 + 1;
+		printf("サイコロが回転しています！！\n");
+		Sleep(3 * 1000);
+		pFunc(&dice, &player);
+		};
 	while (1)
 	{
 		printf("サイコロを振りますか？\n");
@@ -35,7 +48,7 @@ int main(){
 				}
 				else break;
 			}
-			Dice(pFunc, playerJudgment);//サイコロを振る関数を呼び出す
+			Dice(playerJudgment);//サイコロを振る関数を呼び出す
 		}
 		else if (isEnd == 2) {
 			printf("終了します\n");
@@ -46,23 +59,4 @@ int main(){
 		}
 	}
 	return 0;
-}
-void Judgment(int* pResult,int*playerJudgment) {
-	printf("サイコロの目は%d", *pResult);
-	if(*pResult%2==0&&*playerJudgment==2||
-		*pResult%2!=0&&*playerJudgment==1)
-	{
-		printf("おめでとう！\n");
-	}
-	else
-	{
-		printf("残念！\n");
-	}
-}
-void Dice(PFunc* pResult, int player)
-{
-	int dice = rand() % 6 + 1;//サイコロの目を生成
-	printf("サイコロが回転しています！！\n");
-	Sleep(3 * 1000);//3秒待つ
-	pResult(&dice,&player);
 }
