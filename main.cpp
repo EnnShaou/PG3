@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<Windows.h>
 
+
 //敵クラスの定義
 class Enemy
 {
@@ -20,7 +21,7 @@ public:
 	//敵の状態を更新する関数
 	void Update() {
 		//状態を更新する
-		for (int next = (static_cast<int>(phase_)) % static_cast<int>(Phase::COUNT); next < static_cast<int>(Phase::COUNT); next++)
+		for (int next = (static_cast<int>(phase_)); next < static_cast<int>(Phase::COUNT); next++)
 		{
 			phase_ = static_cast<Phase>(next);
 			(this->*stat[static_cast<size_t>(phase_)])();
