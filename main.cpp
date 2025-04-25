@@ -1,4 +1,4 @@
-#include<stdio.h>https://github.com/EnnShaou/PG3-0-0.git
+#include<stdio.h>
 #include<Windows.h>
 
 int main(){
