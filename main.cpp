@@ -15,4 +15,5 @@ int main() {
 	StudentID.clear(); // 学籍番号のリストをクリア
 
 	return 0;
+
 }
